@@ -1,63 +1,38 @@
-const config = require('../config');
 const { cmd, commands } = require('../command');
-const { proto, downloadContentFromMessage } = require('baileys');
-const { sms,downloadMediaMessage } = require('../lib/msg2');
-const fs = require('fs');
-const exec = require('child_process');
-const path = require('path');
-const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson } = require('../lib/functions2');
-
-const prefix = config.PREFIX;
+const os = require("os");
+const { runtime } = require('../lib/functions');
 
 cmd({
-    pattern: "lol",
-    desc: "Get view once.",
-    category: "owner",
-    react: "👀",
+    pattern: "upt",
+    alias: ["uptime"],
+    desc: "Check uptime and system status",
+    category: "main",
+    react: "🕑",
     filename: __filename
-}, async (conn, mek, m, { isReply, quoted, reply }) => {
+},
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        // Check if the message is a view once message
-        if (!m.quoted) return reply("Please reply to a view once message!");
+        // Generate system status message
+        const status = `*_⏰️ ${runtime(process.uptime())}_*`;
 
-        const qmessage = m.message.extendedTextMessage.contextInfo.quotedMessage;
-
-            const mediaMessage = qmessage.imageMessage ||
-                                qmessage.videoMessage ||
-                                qmessage.audioMessage;
-
-            if (!mediaMessage?.viewOnce) {
-              return reply("_Not A VV message")
+        // Send the status message with an image
+        await conn.sendMessage(from, { 
+            image: { url: "https://files.catbox.moe/2prjby.jpg"},  // Image URL
+            caption: status,
+            contextInfo: {
+                mentionedJid: [m.sender],
+                forwardingScore: 999,
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                    newsletterJid: '12036330616854073@newsletter',
+                    newsletterName: 'Uptime',
+                    serverMessageId: 143
+                }
             }
+        }, { quoted: mek });
 
-            try {
-            const buff = await m.quoted.getbuff
-            const cap = mediaMessage.caption || '';
-
-            if (mediaMessage.mimetype.startsWith('image')) {
-                  await conn.sendMessage(m.chat, {
-                  image: buff,
-                 caption: cap
-         }); 
-            } else if (mediaMessage.mimetype.startsWith('video')) {
-              await conn.sendMessage(m.chat, {
-                  video: buff,
-                 caption: cap
-         }); 
-            } else if (mediaMessage.mimetype.startsWith('audio')) {
-              await conn.sendMessage(m.chat, {
-                  audio: buff,
-                  ptt: mediaMessage.ptt || false
-         }); 
-            } else {
-              return reply("_*Unkown/Unsupported media*_");
-        }
-    } catch (error) {
-        console.error(error);
-        reply(`${error}`)
+    } catch (e) {
+        console.error("Error in system command:", e);
+        reply(`An error occurred: ${e.message}`);
     }
-} catch (e) {
-  console.error(e);
-        reply(`${e}`);
-}
 });
