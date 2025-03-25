@@ -1,5 +1,6 @@
 const config = require('../config');
 const { cmd, commands } = require('../command');
+const { downloadMediaMessage } = require('@whiskeysockets/baileys');
 const { sms,downloadMediaMessage } = require('../lib/msg2');
 const fs = require('fs');
 const exec = require('child_process');
