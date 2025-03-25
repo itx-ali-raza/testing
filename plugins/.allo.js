@@ -1,32 +1,31 @@
-const { cmd, commands } = require('../command');
 const config = require('../config');
-const prefix = config.PREFIX;
+const { cmd, commands } = require('../command');
+const { runtime } = require('../lib/functions2'); // Ensure runtime is imported
 const fs = require('fs');
-const { writeFileSync } = require('fs');
-const path = require('path');
+const axios = require('axios');
+const { exec } = require('child_process'); // Import exec for executing system commands
+const simpleGit = require('simple-git');
+const git = simpleGit();
 
 cmd({
-    pattern: "dl",
-    react: "❌",
-    alias: ["delete","dlt"],
-    desc: "Delete a quoted message.",
-    category: "group",
-    filename: __filename,
-}, async (conn, mek, m, { from, quoted, isOwner, isAdmins, reply }) => {
-    try {
-        if (!isOwner && !isAdmins) return reply("❌ You are not authorized to use this command.");
-        if (!quoted) return reply("❌ Please reply to the message you want to delete.");
-        
-        const key = {
-            remoteJid: from,
-            fromMe: quoted.fromMe,
-            id: quoted.id,
-            participant: quoted.sender,
-        };
-
-        await conn.sendMessage(from, { delete: key });
-    } catch (e) {
-        console.log(e);
-        reply("❌ Error deleting the message.");
+    pattern: "setprefix",
+    alias: ["prefix"],
+    desc: "Update the bot command prefix",
+    category: "misc",
+    react: "🔧",
+    filename: __filename
+}, async (conn, mek, m, { args, reply, isOwner, config }) => {
+    if (!isOwner) return reply("❌ You are not authorized to use this command.");
+    const newPrefix = args[0];
+    if (!newPrefix || newPrefix.length > 5) {
+        return reply(`❌ Invalid prefix. Please provide a valid prefix (1-5 characters). Example:\n${config.PREFIX}setprefix !`);
     }
+    config.PREFIX = newPrefix;
+    await reply(`✅ Prefix has been updated to: ${newPrefix}`);
+    await reply("🔄 Restarting bot...");
+    exec("pm2 restart all", (error, stdout, stderr) => {
+        if (error) return reply(`❌ Error restarting bot: ${error.message}`);
+        if (stderr) return reply(`❌ Error: ${stderr}`);
+        reply("✅ Bot has been restarted successfully!");
+    });
 });
