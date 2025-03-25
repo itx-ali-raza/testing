@@ -1,62 +1,117 @@
-const config = require('../config');
 const { cmd, commands } = require('../command');
-const { sms,downloadMediaMessage } = require('../lib/msg2');
+const fg = require('api-dylux');
+const axios = require('axios');
 const fs = require('fs');
-const exec = require('child_process');
 const path = require('path');
-const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson } = require('../lib/functions2');
+const yts = require('yt-search');
+const config = require('../config'); // Importing config file
+const url = require('url'); // Importing url module
 
-const prefix = config.PREFIX;
+const prefix = config.PREFIX; // Get the prefix from the config
 
 cmd({
-    pattern: "lol",
-    desc: "Get view once.",
-    category: "owner",
-    react: "👀",
+    pattern: "play3",
+    alias: ["audio"],
+    desc: "Download songs",
+    category: "download",
+    react: "🎶",
     filename: __filename
-}, async (conn, mek, m, { isReply, quoted, reply }) => {
+}, async (conn, mek, m, { from, quoted, body, pushname, args, q, reply }) => {
     try {
-        // Check if the message is a view once message
-        if (!m.quoted) return reply("Please reply to a view once message!");
-
-        const qmessage = m.message.extendedTextMessage.contextInfo.quotedMessage;
-
-            const mediaMessage = qmessage.imageMessage ||
-                                qmessage.videoMessage ||
-                                qmessage.audioMessage;
-
-            if (!mediaMessage?.viewOnce) {
-              return reply("_Not A VV message")
-            }
-
-            try {
-            const buff = await m.quoted.getbuff
-            const cap = mediaMessage.caption || '';
-
-            if (mediaMessage.mimetype.startsWith('image')) {
-                  await conn.sendMessage(m.chat, {
-                  image: buff,
-                 caption: cap
-         }); 
-            } else if (mediaMessage.mimetype.startsWith('video')) {
-              await conn.sendMessage(m.chat, {
-                  video: buff,
-                 caption: cap
-         }); 
-            } else if (mediaMessage.mimetype.startsWith('audio')) {
-              await conn.sendMessage(m.chat, {
-                  audio: buff,
-                  ptt: mediaMessage.ptt || false
-         }); 
-            } else {
-              return reply("_*Unkown/Unsupported media*_");
+        // Check for query
+        if (!q) {
+            return reply(`Please Enter a Search Query or YouTube link. Usage Example:\n*${config.PREFIX}play Spectre*\n*${config.PREFIX}play https://youtu.be/aGjXa18XCRY?si=-rNZHD-trThO1x4Y*`);
         }
-    } catch (error) {
-        console.error(error);
-        reply(`${error}`)
+
+        // If a YouTube link is provided
+        if (q.startsWith("https://youtu")) {
+            let downloadUrl;
+            try {
+                // Send the API request to fetch the download URL for the provided YouTube link
+                let response = await axios.get(`https://api.giftedtech.my.id/api/download/dlmp3?apikey=gifted&url=${encodeURIComponent(q)}`);
+                downloadUrl = response.data.result.download_url;
+
+                // Download the audio
+                const buffer = await axios.get(downloadUrl, { responseType: 'arraybuffer' });
+
+                // Send the audio to the user
+                await conn.sendMessage(from, { audio: buffer.data, mimetype: "audio/mp3" }, { quoted: mek });
+                await m.react("✅");
+                return;
+            } catch (err) {
+                console.error("Error fetching download URL:", err);
+                return reply("❌ Unable to fetch download URL. Please try again later.");
+            }
+        }
+
+        // If no link, perform a search for the video
+        const search = await yts(q);
+        const data = search.videos[0];
+        const videoUrl = data.url;
+
+        // Fetch the download URL for the found video
+        let downloadUrl;
+        try {
+            let response = await axios.get(`https://api.giftedtech.web.id/api/download/dlmp3?apikey=gifted&url=${encodeURIComponent(videoUrl)}`);
+            downloadUrl = response.data.result.download_url;
+        } catch (err) {
+            console.error("Error fetching download URL:", err);
+            return reply("❌ Unable to fetch download URL. Please try again later.");
+        }
+
+        // Information Message
+        const infoMessage = {
+            image: { url: data.thumbnail },
+            caption: `
+╭──────❏ *ALI-MD DOWNLOADER* ❏
+│ 𝙷𝙴𝙻𝙻𝙾 ${pushname || "User"}
+│❏──────────────────────────────❏
+│ *Title:* ${data.title}
+│ *Quality:* mp3 (128kbps)
+│ *Duration:* ${data.timestamp}
+│ *Viewers:* ${data.views}
+│ *Uploaded:* ${data.ago}
+│ *Artist:* ${data.author.name}
+│❏──────────────────────────────❏
+│⦿ *Direct Yt Link:* ${videoUrl}
+│❏──────────────────────────────❏
+│ >Made By Ali
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⊷`,
+            contextInfo: {
+                mentionedJid: [mek.sender],
+                forwardingScore: 5,
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                    newsletterJid: '120363337275149306@newsletter',
+                    newsletterName: "ali",
+                    serverMessageId: 143
+                }
+            }
+        };
+
+        await conn.sendMessage(from, infoMessage, { quoted: mek });
+
+        // Send the audio file
+        await conn.sendMessage(from, {
+            audio: { url: downloadUrl },
+            fileName: `${data.title}.mp3`,
+            mimetype: 'audio/mpeg',
+            contextInfo: {
+                externalAdReply: {
+                    showAdAttribution: false,
+                    title: data.title,
+                    body: 'Made By ali',
+                    thumbnailUrl: data.thumbnail,
+                    sourceUrl: global.channelUrl,
+                    mediaType: 1,
+                    renderLargerThumbnail: false
+                }
+            }
+        }, { quoted: mek });
+
+        await m.react("✅");
+    } catch (e) {
+        console.error("Error in play command:", e);
+        reply(`❌ Error: ${e.message}`);
     }
-} catch (e) {
-  console.error(e);
-        reply(`${e}`);
-}
 });
