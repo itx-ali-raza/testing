@@ -1,11 +1,11 @@
 const config = require('../config');
 const { cmd, commands } = require('../command');
 const { proto, downloadContentFromMessage } = require('baileys');
-const { sms,downloadMediaMessage } = require('../lib/msg');
+const { sms,downloadMediaMessage } = require('../lib/msg2');
 const fs = require('fs');
 const exec = require('child_process');
 const path = require('path');
-const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson } = require('../lib/functions');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, sleep, fetchJson } = require('../lib/functions2');
 
 const prefix = config.PREFIX;
 
