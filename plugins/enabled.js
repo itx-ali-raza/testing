@@ -13,7 +13,24 @@ const path = require('path');
 
 let antilinkAction = "off"; // Default state
 let warnCount = {}; // Track warnings per user
+cmd({
+    pattern: "prefix",
+    alias: ["prefix"],
+    react: "🔧",
+    desc: "Change the bot's command prefix.",
+    category: "settings",
+    filename: __filename,
+}, async (conn, mek, m, { from, args, isOwner, reply }) => {
+    if (!isOwner) return reply("*📛 Only the owner can use this command!*");
 
+    const newPrefix = args[0]; // Get the new prefix from the command arguments
+    if (!newPrefix) return reply("❌ Please provide a new prefix. Example: `.prefix !`");
+
+    // Update the prefix in memory
+    config.PREFIX = newPrefix;
+
+    return reply(`✅ Prefix successfully changed to *${newPrefix}*`);
+});
 cmd({
     pattern: "mode",
     desc: "Set bot mode to private or public.",
