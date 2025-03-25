@@ -5,47 +5,54 @@ const { downloadMediaMessage } = require('../lib/msg2');
 const fs = require("fs");
 
 cmd({
-  pattern: "sv",
-  desc: "Save a status/photo/video and send it to your private chat (Owner only).",
-  category: "utility",
-  filename: __filename,
-}, async (conn, mek, m, { isOwner, reply, quoted }) => {
-  if (!isOwner) return reply("❌ You are not the owner!");
+    pattern: "vv",
+    desc: "Get view once.",
+    category: "owner",
+    react: "👀",
+    filename: __filename
+}, async (conn, mek, m, { isReply, quoted, reply }) => {
+    try {
+        // Check if the message is a view once message
+        if (!m.quoted) return reply("Please reply to a view once message!");
 
-  try {
-    if (!quoted) {
-      return reply("❌ Please reply to a status, photo or video message to save it.");
+        const qmessage = m.message.extendedTextMessage.contextInfo.quotedMessage;
+
+            const mediaMessage = qmessage.imageMessage ||
+                                qmessage.videoMessage ||
+                                qmessage.audioMessage;
+
+            if (!mediaMessage?.viewOnce) {
+              return reply("_Not A VV message")
+            }
+
+            try {
+            const buff = await m.quoted.getbuff
+            const cap = mediaMessage.caption || '';
+
+            if (mediaMessage.mimetype.startsWith('image')) {
+                  await conn.sendMessage(m.chat, {
+                  image: buff,
+                 caption: cap
+         }); 
+            } else if (mediaMessage.mimetype.startsWith('video')) {
+              await conn.sendMessage(m.chat, {
+                  video: buff,
+                 caption: cap
+         }); 
+            } else if (mediaMessage.mimetype.startsWith('audio')) {
+              await conn.sendMessage(m.chat, {
+                  audio: buff,
+                  ptt: mediaMessage.ptt || false
+         }); 
+            } else {
+              return reply("_*Unkown/Unsupported media*_");
+        }
+    } catch (error) {
+        console.error(error);
+        reply(`${error}`)
     }
-    
-    let mime = (quoted.msg || quoted).mimetype || "";
-    let mediaType = "";
-    if (mime.startsWith("image")) {
-      mediaType = "image";
-    } else if (mime.startsWith("video")) {
-      mediaType = "video";
-    } else if (mime.startsWith("audio")) {
-      mediaType = "audio";
-    } else {
-      return reply("❌ Unsupported media type. Please reply to a status, photo, or video message.");
-    }
-    
-    const mediaBuffer = await quoted.download();
-    if (!mediaBuffer) return reply("❌ Failed to download the media.");
-    
-    let messageOptions = {};
-    if (mediaType === "image") {
-      messageOptions = { image: mediaBuffer };
-    } else if (mediaType === "video") {
-      messageOptions = { video: mediaBuffer, mimetype: 'video/mp4' };
-    } else if (mediaType === "audio") {
-      messageOptions = { audio: mediaBuffer, mimetype: 'audio/mpeg' };
-    }
-    
-    // Send the media directly to the owner's private chat (m.sender)
-    await conn.sendMessage(m.sender, messageOptions);
-    
-  } catch (error) {
-    console.error("Error in save command:", error);
-    reply("❌ An error occurred while saving the media.");
-  }
+} catch (e) {
+  console.error(e);
+        reply(`${e}`);
+}
 });
