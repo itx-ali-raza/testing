@@ -28,7 +28,7 @@ cmd({
             let downloadUrl;
             try {
                 // Send the API request to fetch the download URL for the provided YouTube link
-                let response = await axios.get(`https://api.giftedtech.my.id/api/download/dlmp3?apikey=gifted&url=${encodeURIComponent(q)}`);
+                let response = await axios.get(`https://apis.davidcyriltech.my.id/youtube/mp3?url=${encodeURIComponent(yts.url)}`);
                 downloadUrl = response.data.result.download_url;
 
                 // Download the audio
@@ -115,3 +115,64 @@ cmd({
         reply(`❌ Error: ${e.message}`);
     }
 });
+
+cmd({
+    pattern: "app",
+    category: "download",
+    desc: "Fetches and downloads APK file.",
+    use: "<query>",
+    filename: __filename,
+  },
+  async (conn, mek, m, { from, quoted, body, args, pushname, q, reply }) => {
+    try {
+      if (!q) {
+        return reply(
+          `*_Please provide a query, ${pushname || "User"}!!_*`
+        );
+      }
+
+      const apiUrl = `https://api.nexoracle.com/downloader/apk?apikey=MepwBcqIM0jYN0okD&q=${encodeURIComponent(q)}`;
+      const result = await axios.get(apiUrl);
+
+      if (!result.data) {
+        return reply(`*_Something went wrong. Please try again later._*`);
+      }
+
+      const data = result.data.result;
+      const apkUrl = data.dllink;
+      const fileName = `${data.name}.apk`;
+      const filePath = path.join(__dirname, fileName);
+
+      const response = await axios({
+        url: apkUrl,
+        method: 'GET',
+        responseType: 'stream'
+      });
+
+      const writer = fs.createWriteStream(filePath);
+
+      response.data.pipe(writer);
+
+      writer.on('finish', async () => {
+        await conn.sendMessage(
+          from,
+          {
+            document: { url: filePath },
+            caption: `*📦 APK Download for "${q}":*\n\n*App Name:* ${data.name}\n*Size:* ${data.size}\n`,
+            fileName: fileName,
+            mimetype: "application/vnd.android.package-archive"
+          },
+          { quoted: mek }
+        );
+
+        fs.unlinkSync(filePath); // Clean up the file after sending
+      });
+
+      writer.on('error', (err) => {
+        throw err;
+      });
+
+    } catch (e) {
+      return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+  });
