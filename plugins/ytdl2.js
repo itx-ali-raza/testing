@@ -98,19 +98,26 @@ const yt = await ytsearch(q);
     await conn.sendMessage(from, { image: { url: data.result.image || '' }, caption: ytmsg }, { quoted: mek });
     
     // Send audio file
-    await conn.sendMessage(from, { audio: { url: data.result.downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-    
-    // Send document file
-    //await conn.sendMessage(from, { 
-       // document: { url: data.result.downloadUrl }, 
-      ///  mimetype: "audio/mpeg", 
-      //  fileName: `${data.result.title}.mp3`, 
-      //  caption: `> *© ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴀʟɪ🎐*`
-  //  }, { quoted: mek });
+    await conn.sendMessage(from, {
+            audio: { url: downloadUrl },
+            fileName: `${data.title}.mp3`,
+            mimetype: 'audio/mpeg',
+            contextInfo: {
+                externalAdReply: {
+                    showAdAttribution: false,
+                    title: data.title,
+                    body: 'Made By ali',
+                    thumbnailUrl: data.thumbnail,
+                    sourceUrl: global.channelUrl,
+                    mediaType: 1,
+                    renderLargerThumbnail: false
+                }
+            }
+        }, { quoted: mek });
 
-} catch (e) {
-    console.log(e);
-    reply("An error occurred. Please try again later.");
-}
-
+        await m.react("✅");
+    } catch (e) {
+        console.error("Error in play command:", e);
+        reply(`❌ Error: ${e.message}`);
+    }
 });
