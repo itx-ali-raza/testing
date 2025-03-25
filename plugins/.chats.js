@@ -31,6 +31,40 @@ cmd({
     }
 });
 
+cmd({
+    pattern: "clear",
+    desc: "Clear a chat",
+    category: "chats",
+    react: "🧹",
+    filename: __filename
+}, async (conn, mek, m, { from, isOwner, reply }) => {
+    if (!isOwner) return reply("❌ You are not the owner!");
+
+    try {
+        // Fetch recent messages in the chat
+        const messages = await conn.getMessages(from, { limit: 10 }); // Adjust the limit as needed
+
+        // Get the last message in the chat (if available)
+        const lastMsgInChat = messages[0]; // The most recent message
+
+        if (!lastMsgInChat) {
+            return reply("❌ No messages to delete in this chat.");
+        }
+
+        // Delete the last message
+        await conn.chatModify({
+            delete: true,
+            lastMessages: [{
+                key: lastMsgInChat.key,
+                messageTimestamp: lastMsgInChat.messageTimestamp
+            }]
+        }, from);
+
+        reply("🧹 Last message cleared successfully!");
+    } catch (error) {
+        reply(`❌ Error clearing chat: ${error.message}`);
+    }
+});
 
 
 
