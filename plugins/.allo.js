@@ -1,14 +1,6 @@
-const { cmd, commands } = require('../command');
-const fg = require('api-dylux');
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
-const yts = require('yt-search');
-const config = require('../config'); // Importing config file
-const url = require('url'); // Importing url module
-
-const prefix = config.PREFIX; // Get the prefix from the config
-
+const config = require('../config');
+const { cmd } = require('../command');
+const { ytsearch, ytmp3, ytmp4 } = require('@dark-yasiya/yt-dl.js'); 
 cmd({
     pattern: "play3",
     alias: ["audio"],
