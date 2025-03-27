@@ -18,12 +18,12 @@ cmd({
     if (!fs.existsSync('./.git')) { 
       console.log("Initializing git repository..."); 
       execSync('git init'); 
-      execSync('git remote add origin https://github.com/itx-ali-raza/testing.git'); 
+      execSync('git remote add origin https://github.com/itx-alii-raza/testing.git'); 
     } else { 
       console.log("Checking existing remotes..."); 
       const remotes = execSync('git remote').toString().split('\n').filter(r => r.trim()); 
       if (!remotes.includes('origin')) { 
-        execSync('git remote add origin https://github.com/itx-ali-raza/testing.git'); 
+        execSync('git remote add origin https://github.com/itx-alii-raza/testing.git'); 
       } 
     }
     
