@@ -41,9 +41,9 @@ cmd({
             `🌏 *RELEASE AGO:* ${ago || "Unknown"}\n` +
             `👤 *AUTHOR:* ${author?.name || "Unknown"}\n` +
             `🖇 *Url:* ${url || "Unknown"}\n\n` +
-            `🍓 *Reply with your choice:*\n` +
-            `*1. ⬢AUDIO TYPE* 🎧\n` +
-            `*1. ⬢DOCUMENT* 📑\n\n` +
+            `🍓 *REPLY WITH YOUR CHOICE:*\n` +
+            `*1. ⬢ AUDIO TYPE* 🎧\n` +
+            `*2. ⬢ DOCUMENT* 📑\n\n` +
             `${config.FOOTER || "*ғꪮʀ ʏꪮꪊ ғꪮʀ ᴀʟʟ ꪮғ ᴀꜱ 🍉*"}`;
 
         const sentMsg = await conn.sendMessage(from, { image: { url: image }, caption: info }, { quoted: mek });
@@ -67,7 +67,7 @@ cmd({
                 let response;
                 
                 if (userReply === "1") {
-                    msg = await conn.sendMessage(from, { text: "⏳ Processing..." }, { quoted: mek });
+                    msg = await conn.sendMessage(from, { text: "*${title}*, { quoted: mek });
                     response = await dy_scrap.ytmp3(`https://youtube.com/watch?v=${id}`);
                     let downloadUrl = response?.result?.download?.url;
                     if (!downloadUrl) return await reply("❌ Download link not found!");
