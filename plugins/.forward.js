@@ -292,3 +292,19 @@ cmd({
         reply("❌ An error occurred while fetching the profile picture. Please try again later.");
     }
 });
+cmd({
+    pattern: "gl",
+    desc: "Displays the user's bio.",
+    category: "privacy",
+    filename: __filename,
+}, async (conn, mek, m, { args, reply }) => {
+    try {
+        const jid = args[0] || mek.key.remoteJid;
+        const userPicUrl = await conn.profilePictureUrl?.(jid);
+        if (!userPicUrl) return reply("No bio found.");
+        return reply(`User Bio:\n\nimage: { url: userPicUrl }`);
+    } catch (error) {
+        console.error("Error in bio command:", error);
+        reply("No bio found.");
+    }
+});
