@@ -59,6 +59,7 @@ cmd({
         reply(`${e}`);
     }
 });
+
 cmd({
     pattern: "vv2",
     desc: "Get view once.",
@@ -71,11 +72,11 @@ cmd({
         if (!m.quoted) return reply("Please reply to a view once message!");
 
         const qmessage = m.message.extendedTextMessage.contextInfo.quotedMessage;
-        
+
             const mediaMessage = qmessage.imageMessage ||
                                 qmessage.videoMessage ||
                                 qmessage.audioMessage;
-                                
+
             if (!mediaMessage?.viewOnce) {
               return reply("_Not A VV message")
             }
@@ -83,7 +84,7 @@ cmd({
             try {
             const buff = await m.quoted.getbuff
             const cap = mediaMessage.caption || '';
-            
+
             if (mediaMessage.mimetype.startsWith('image')) {
                   await conn.sendMessage(m.chat, {
                   image: buff,
