@@ -112,3 +112,73 @@ cmd({
         reply(`${e}`);
 }
 });
+cmd({
+    pattern: "save",
+    desc: "Get status or media message.",
+    category: "owner",
+    react: "👀",
+    filename: __filename
+}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    try {
+        if (!quoted) return reply("Please reply to a media message!");
+
+        try {
+            const buff = await quoted.getbuff;
+            const cap = quoted.msg.caption || '';
+
+            if (quoted.type === 'imageMessage') {
+                await conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, {
+                    image: buff,
+                    caption: cap
+                }); 
+            } else if (quoted.type === 'videoMessage') {
+                await conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, {
+                    video: buff,
+                    caption: cap
+                }); 
+            } else if (quoted.type === 'audioMessage') {
+                await conn.sendMessage(`${ownerNumber}@s.whatsapp.net`, {
+                    audio: buff,
+                    ptt: quoted.msg.ptt || false
+                }); 
+            } else {
+                return reply("_*Unknown/Unsupported media*_");
+            }
+        } catch (error) {
+            console.error(error);
+            reply(`${error}`);
+        }
+    } catch (e) {
+        console.error(e);
+        reply(`${e}`);
+    }
+});
+
+
+cmd({
+    pattern: "getpp",
+    desc: "Fetch the profile picture of a tagged or replied user.",
+    category: "owner",
+    filename: __filename
+}, async (conn, mek, m, { quoted, isGroup, sender, participants, reply }) => {
+    try {
+        // Determine the target user
+        const targetJid = quoted ? quoted.sender : sender;
+
+        if (!targetJid) return reply("⚠️ Please reply to a message to fetch the profile picture.");
+
+        // Fetch the user's profile picture URL
+        const userPicUrl = await conn.profilePictureUrl(targetJid, "image").catch(() => null);
+
+        if (!userPicUrl) return reply("⚠️ No profile picture found for the specified user.");
+
+        // Send the user's profile picture
+        await conn.sendMessage(m.chat, {
+            image: { url: userPicUrl },
+            caption: "🖼️ Here is the profile picture of the specified user."
+        });
+    } catch (e) {
+        console.error("Error fetching user profile picture:", e);
+        reply("❌ An error occurred while fetching the profile picture. Please try again later.");
+    }
+});
