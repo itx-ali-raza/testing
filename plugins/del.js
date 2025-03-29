@@ -45,14 +45,13 @@ let madeMenu = `‎*╭───❍「 LOGO 𝖫𝖨𝖲𝖳 」❍*
 ‎*├⬡ .ʙᴇᴀʀ*
 ‎*├⬡ .ᴛʏᴘᴏɢʀᴀᴘʜʏ*
 ‎*├⬡ .ʙɪʀᴛʜᴅᴀʏ*
-‎*╰───────────────❍*`
+‎*╰───────────────❍*`;
 
-  // Send message with an image
-        await conn.sendMessage(
+await conn.sendMessage(
             from,
             {
-                image: { url: 'https://cdn.ironman.my.id/i/m8r9ux.jpg' }, // Image URL
-                caption: envSettings,
+                image: { url: `https://files.catbox.moe/bddvfr.jpg` },
+                caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
@@ -65,9 +64,9 @@ let madeMenu = `‎*╭───❍「 LOGO 𝖫𝖨𝖲𝖳 」❍*
                 }
             },
             { quoted: mek });
-
-    } catch (error) {
-        console.log(error);
-        reply(`Error: ${error.message}`);
+        
+    } catch (e) {
+        console.log(e);
+        reply(`${e}`);
     }
 });
