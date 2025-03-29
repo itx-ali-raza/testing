@@ -45,7 +45,7 @@ const {
   const mode = config.MODE
   const online = config.ALWAYS_ONLINE
   const status = config.AUTO_STATUS_SEEN
-  const ownerNumber = config.OWNER_NUMBER
+ 
   
   const ownerNumber = ['923003588997']
   
