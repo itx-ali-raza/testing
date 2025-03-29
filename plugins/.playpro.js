@@ -67,7 +67,7 @@ cmd({
                 let response;
                 
                 if (userReply === "1") {
-                    msg = await conn.sendMessage(from, { text: "*${title}*, { quoted: mek });
+                    msg = await conn.sendMessage(from, { text: "${title}" }, { quoted: mek });
                     response = await dy_scrap.ytmp3(`https://youtube.com/watch?v=${id}`);
                     let downloadUrl = response?.result?.download?.url;
                     if (!downloadUrl) return await reply("❌ Download link not found!");
