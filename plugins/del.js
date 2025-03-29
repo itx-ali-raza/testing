@@ -3,57 +3,53 @@ const { cmd } = require("../command");
 
 
 cmd({
-    pattern: "dlmenu",
+    pattern: "logo",
+    alias: ["logomenu"],
     desc: "menu the bot",
     category: "menu",
-    react: "⤵️",
+    react: "🎀",
     filename: __filename
 }, 
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        let dec = ` 〘 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 𝗠𝗘𝗡𝗨 〙
-
-╭─────────────⪼
-┋ ☻ *ʏᴛᴘᴏsᴛ* 
-┋ ☻ *ᴀᴘᴋ* 
-┋ ☻ *ᴛᴡɪᴛᴛᴇʀ* 
-┋ ☻ *ɢᴅʀɪᴠᴇ* 
-┋ ☻ *ᴍᴇᴅɪᴀғɪʀᴇ* 
-┋ ☻ *ᴍᴇᴅɪᴀғɪʀᴇᴘʀᴏ*
-┋ ☻ *sᴘᴏᴛɪғʏ*
-┋ ☻ *ғʙ*
-┋ ☻ *ɪɢ* 
-┋ ☻ *ᴍᴏᴠɪᴇ*
-┋ ☻ *sᴏɴɢ* 
-┋ ☻ *sᴏɴɢ1*
-┋ ☻ *ᴠɪᴅᴇᴏ* 
-┋ ☻ *ᴠɪᴅᴇᴏ3*
-┋ ☻ *ᴠɪᴅᴘʀᴏ*
-┋ ☻ *ᴘʟᴀʏ*
-┋ ☻ *ᴘʟᴀʏ2*
-┋ ☻ *ᴘʟᴀʏ3*
-┋ ☻ *ᴘʟᴀʏᴛ*
-┋ ☻ *ᴘʟᴀʏᴘʀᴏ*
-┋ ☻ *ᴘʟᴀʏᴜʟᴛʀᴀ*
-┋ ☻ *ʏᴛ*
-┋ ☻ *ʏᴛᴍᴘ3*
-┋ ☻ *ʏᴛᴍᴘ4*
-┋ ☻ *ᴛɪᴋᴛᴏᴋ* 
-┋ ☻ *ᴛɪᴋᴛᴏᴋ2*
-┋ ☻ *ɪᴍɢ* 
-┋ ☻ *ʙᴀɪsᴄᴏᴘᴇ*
-┋ ☻ *sɪɴʜᴀʟᴀsᴜʙ*
-┋ ☻ *ɢᴇɴɪsɪsɪʟᴀ*
-┋ ☻ *xɴxxᴅᴏᴡɴ*
-┋ ☻ *xᴠᴅʟ*
-┋ ☻ *ᴘɪɴᴛᴇʀᴇsᴛ*
-┋ ☻ *ʀᴀɴᴅᴏᴍᴀɴɪᴍᴇ*
-╰━━━━∙⋆⋅⋆∙━ ─┉─ • ─┉─⊷`;
+        let dec = `*╭───❍「 LOGO 𝖫𝖨𝖲𝖳 」❍*
+‎*├⬡ .ɴᴇᴏɴʟɪɢʜᴛ*
+‎*├⬡ .ʙʟᴀᴄᴋᴘɪɴᴋ*
+‎*├⬡ .ᴅʀᴀɢᴏɴʙᴀʟʟ*
+‎*├⬡ .𝟹ᴅᴄᴏᴍɪᴄ*
+‎*├⬡ .ᴀᴍᴇʀɪᴄᴀ*
+‎*├⬡ .ɴᴀʀᴜᴛᴏ*
+‎*├⬡ .sᴀᴅɢɪʀʟ*
+‎*├⬡ .ᴄʟᴏᴜᴅs*
+‎*├⬡ .ғᴜᴛᴜʀɪsᴛɪᴄ*
+‎*├⬡ .𝟹ᴅᴘᴀᴘᴇʀ*
+‎*├⬡ .ᴇʀᴀsᴇʀ*
+‎*├⬡ .sᴜɴsᴇᴛ*
+‎*├⬡ .ʟᴇᴀғ*
+‎*├⬡ .ɢᴀʟᴀxʏ*
+‎*├⬡ .sᴀɴs*
+‎*├⬡ .ʙᴏᴏᴍ*
+‎*├⬡ .ʜᴀᴄᴋᴇʀ*
+‎*├⬡ .ᴅᴇᴠɪʟᴡɪɴɢs*
+‎*├⬡ .ɴɪɢᴇʀɪᴀ*
+‎*├⬡ .ʙᴜʟʙ*
+‎*├⬡ .ᴀɴɢᴇʟᴡɪɴɢs*
+‎*├⬡ .ᴢᴏᴅɪᴀᴄ*
+‎*├⬡ .ʟᴜxᴜʀʏ*
+‎*├⬡ .ᴘᴀɪɴᴛ*
+‎*├⬡ .ғʀᴏᴢᴇɴ*
+‎*├⬡ .ᴄᴀsᴛʟᴇ*
+‎*├⬡ .ᴛᴀᴛᴏᴏ*
+‎*├⬡ .ᴠᴀʟᴏʀᴀɴᴛ*
+‎*├⬡ .ʙᴇᴀʀ*
+‎*├⬡ .ᴛʏᴘᴏɢʀᴀᴘʜʏ*
+‎*├⬡ .ʙɪʀᴛʜᴅᴀʏ*
+‎*╰───────────────❍*`;
 
         await conn.sendMessage(
             from,
             {
-                image: { url: `https://files.catbox.moe/l1uebm.jpg` },
+                image: { url: `https://cdn.ironman.my.id/i/m8r9ux.jpg` },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
