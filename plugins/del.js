@@ -1,3 +1,7 @@
+const axios = require("axios");
+const { cmd } = require("../command");
+
+
 cmd({
     pattern: "dlmenu",
     desc: "menu the bot",
