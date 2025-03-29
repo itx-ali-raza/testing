@@ -13,7 +13,7 @@ cmd({
     filename: __filename
 },
 async (conn, mek, m, { from, isOwner, reply }) => {
-    if (!isOwner) return reply("❌ You are not the owner!");
+    if (!isOwner) return reply("*📛 You are not the owner!*");
 
     try {
         // Fetch the block list
@@ -25,7 +25,7 @@ async (conn, mek, m, { from, isOwner, reply }) => {
 
         // Format the blocked users with 📌 and count the total
         const list = blockedUsers
-            .map((user, i) => `📌  ${user.split('@')[0]}`) // Remove domain and add 📌
+            .map((user, i) => `🚧 BLOCKED ${user.split('@')[0]}`) // Remove domain and add 📌
             .join('\n');
 
         const count = blockedUsers.length;
@@ -53,7 +53,7 @@ cmd({
     }
 });
 cmd({
-    pattern: "myprofile-pic",
+    pattern: "setppall",
     desc: "Update Profile Picture Privacy",
     category: "privacy",
     react: "🔐",
@@ -77,7 +77,7 @@ async (conn, mek, m, { from, l, quoted, body, isCmd, command, args, q, isGroup, 
     }
 });
 cmd({
-    pattern: "online",
+    pattern: "setonline",
     desc: "Update Online Privacy",
     category: "privacy",
     react: "🔐",
@@ -184,7 +184,7 @@ async (conn, mek, m, { from, l, quoted, body, isCmd, command, args, q, isGroup, 
     }
 });
 cmd({
-    pattern: "groups-privacy",
+    pattern: "groupsprivacy",
     desc: "Update Group Add Privacy",
     category: "privacy",
     react: "🔐",
