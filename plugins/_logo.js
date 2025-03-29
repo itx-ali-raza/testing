@@ -778,3 +778,519 @@ cmd({
         return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
     }
 });
+cmd({
+    pattern: "hacker",
+    desc: "Create a Hacker text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: hacker Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/create-anonymous-hacker-avatars-cyan-neon-677.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "boom",
+    desc: "Create a Boom text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: boom Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/boom-text-comic-style-text-effect-675.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "luxury",
+    desc: "Create a Luxury  text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: luxury Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/floral-luxury-logo-collection-for-branding-616.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "zodiac",
+    desc: "Create a 3D Comic-style text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: Zodiac Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/create-star-zodiac-wallpaper-mobile-604.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "angelwings",
+    desc: "Create a Angel Wings text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: angelwings Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/angel-wing-effect-329.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "bulb",
+    desc: "Create a Bulb text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: bulb Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/text-effects-incandescent-bulbs-219.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "tatoo",
+    desc: "Create a Tatoo ext effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: Tatoo Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/make-tattoos-online-by-empire-tech-309.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "castle",
+    desc: "Create a  Castle text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: castle Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/create-a-3d-castle-pop-out-mobile-photo-effect-786.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "frozen",
+    desc: "Create a Frozen text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: frozen Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/create-a-frozen-christmas-text-effect-online-792.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "paint",
+    desc: "Create a Paint text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: paint Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/create-3d-colorful-paint-text-effect-online-801.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "birthday",
+    desc: "Create a Birthdaytext effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: birthday Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/beautiful-3d-foil-balloon-effects-for-holidays-and-birthday-803.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "typography",
+    desc: "Create a Typography text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: Typography Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/create-typography-status-online-with-impressive-leaves-357.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "bear",
+    desc: "Create a Bear text effect",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, args, reply }) => {
+    try {
+        if (!args.length) {
+            return reply("❌ Please provide a name. Example: bear Empire");
+        }
+        
+        const name = args.join(" ");
+        
+        // API URL with user-provided name
+        const apiUrl = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/free-bear-logo-maker-online-673.html&name=${encodeURIComponent(name)}`;
+
+        // Fetch JSON response
+        const result = await fetchJson(apiUrl);
+
+        // Check if the download_url is present
+        if (!result?.result?.download_url) {
+            return;
+        }
+
+        // Send the 3D Comic-style text effect image
+        await conn.sendMessage(from, {
+            image: {
+                url: result.result.download_url
+            }
+        });
+
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
+
+cmd({
+    pattern: "valorant",
+    desc: "Create a Valorant YouTube banner with three text inputs",
+    category: "logo",
+    react: "🎨",
+    filename: __filename
+}, async (conn, mek, m, { from, quoted, prefix, args, reply }) => {
+    try {
+        if (args.length < 3) {
+            return reply(`❌ Please provide 3 text inputs. Example:\n${prefix}valorant Text1 Text2 Text3`);
+        }
+
+        // Extract the three text inputs
+        const text1 = args[0];
+        const text2 = args[1];
+        const text3 = args.slice(2).join(" ");
+
+        // Build the API URL
+        const apiUrl = `https://api.nexoracle.com/ephoto360/valorant-youtube-banner?apikey=MepwBcqIM0jYN0okD&text1=${encodeURIComponent(text1)}&text2=${encodeURIComponent(text2)}&text3=${encodeURIComponent(text3)}`;
+
+        // Fetch the logo as a buffer
+        const buffer = await getBuffer(apiUrl); // Ensure this gets image data
+
+        // Send the image with the buffer data and include the quoted message if it exists
+        const options = quoted ? { quoted: mek } : {};
+
+        // Send the Valorant YouTube banner as an image
+        await conn.sendMessage(from, {
+            image: buffer, 
+            caption: "Here is your Valorant YouTube banner!"
+        }, options);
+    } catch (e) {
+        return reply(`*An error occurred while processing your request.*\n\n_Error:_ ${e.message}`);
+    }
+});
