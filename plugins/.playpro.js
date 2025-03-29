@@ -34,7 +34,7 @@ cmd({
 
         const { url, title, image, timestamp, ago, views, author } = data.results[0];
 
-        let info = `*͎᪳᪳🫟ᩧ𝅄𝐀ɭīī 𝐌Ɗ 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐈𝐍𝐆 🪾͎᪳᪳𝆺𝅥 ⃙̊- ִ ۫*\n\n` +
+        let info = `*͎᪳᪳🫟ᩧ𝅄𝐀ɭīī 𝐌Ɗ 𝐏𝐋𝐀𝐘𝐈𝐍𝐆 🪾͎᪳᪳𝆺𝅥 ⃙̊- ִ ۫*\n\n` +
             `🎧 *TITLE:* ${title || "Unknown"}\n` +
             `⏰ *DURATION:* ${timestamp || "Unknown"}\n` +
             `👀 *VIEWS:* ${views || "Unknown"}\n` +
@@ -42,8 +42,8 @@ cmd({
             `👤 *AUTHOR:* ${author?.name || "Unknown"}\n` +
             `🖇 *Url:* ${url || "Unknown"}\n\n` +
             `🍓 *REPLY WITH YOUR CHOICE:*\n` +
-            `*1. ⬢ AUDIO TYPE* 🎧\n` +
-            `*2. ⬢ DOCUMENT* 📑\n\n` +
+            `*1. ⌬ AUDIO TYPE* 🎧\n` +
+            `*2. ⌬ DOCUMENT* 📑\n\n` +
             `${config.FOOTER || "*ғꪮʀ ʏꪮꪊ ғꪮʀ ᴀʟʟ ꪮғ ᴀꜱ 🍉*"}`;
 
         const sentMsg = await conn.sendMessage(from, { image: { url: image }, caption: info }, { quoted: mek });
@@ -67,14 +67,14 @@ cmd({
                 let response;
                 
                 if (userReply === "1") {
-                    msg = await conn.sendMessage(from, { text: "${title}" }, { quoted: mek });
+                    msg = await conn.sendMessage(from, { text: "*𝐉𝐔𝐒𝐓 𝐀 𝐌𝐈𝐍𝐔𝐓𝐄 𝐘𝐎𝐔𝐑 𝐀𝐔𝐃𝐈𝐎 𝐈𝐒 𝐁𝐄𝐈𝐍𝐆 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐈𝐍𝐆†⎯꯭̽😊⏰🧸*" }, { quoted: mek });
                     response = await dy_scrap.ytmp3(`https://youtube.com/watch?v=${id}`);
                     let downloadUrl = response?.result?.download?.url;
                     if (!downloadUrl) return await reply("❌ Download link not found!");
                     type = { audio: { url: downloadUrl }, mimetype: "audio/mpeg" };
                     
                 } else if (userReply === "2") {
-                    msg = await conn.sendMessage(from, { text: "⏳ Processing..." }, { quoted: mek });
+                    msg = await conn.sendMessage(from, { text: "*𝐉𝐔𝐒𝐓 𝐀 𝐌𝐈𝐍𝐔𝐓𝐄 𝐘𝐎𝐔𝐑 𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓𝐒 𝐈𝐒 𝐁𝐄𝐈𝐍𝐆 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐈𝐍𝐆†⎯꯭̽😊⏰🧸*" }, { quoted: mek });
                     const response = await dy_scrap.ytmp3(`https://youtube.com/watch?v=${id}`);
                     let downloadUrl = response?.result?.download?.url;
                     if (!downloadUrl) return await reply("❌ Download link not found!");
@@ -85,7 +85,7 @@ cmd({
                 }
 
                 await conn.sendMessage(from, type, { quoted: mek });
-                await conn.sendMessage(from, { text: '✅ Media Upload Successful ✅', edit: msg.key });
+                await conn.sendMessage(from, { text: '*✅ 𝐀𝐋𝐈-𝐌𝐃 𝐁𝐎𝐓 𝐒𝐔𝐂𝐂𝐄𝐒𝐒𝐅𝐔𝐋𝐋𝐘 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃 𝐘𝐎𝐔𝐑 𝐀𝐔𝐃𝐈𝐎! 🎧🍿*', edit: msg.key });
 
             } catch (error) {
                 console.error(error);
