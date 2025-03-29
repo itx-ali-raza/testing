@@ -43,6 +43,7 @@ const {
   const path = require('path')
   const prefix = config.PREFIX
   const mode = config.MODE
+  const ownerNumber = config.OWNER_NUMBER
   const online = config.ALWAYS_ONLINE
   const status = config.AUTO_STATUS_SEEN
   
