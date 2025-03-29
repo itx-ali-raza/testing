@@ -1,39 +1,89 @@
-const { cmd } = require('../command');
+const config = require("../config");
+const fs = require("fs");
+const path = require("path");
+const { cmd } = require("../command");
 
-cmd({
-    pattern: "forward",
-    desc: "Forwards any message (text, image, video, audio, etc.) to a specified JID.",
-    react: "🔁",
-    category: "main",
-    filename: __filename,
-}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        // Ensure the user has provided a target JID (user or group)
-        const targetJid = args[0];
-        if (!targetJid) return reply("❌ Please provide the JID (user or group) to forward the message to.");
+cmd(
+    {
+        pattern: "pingg",
+        react: "♻️",
+        alias: ["speed"],
+        desc: "Check bot's ping and send a voice message with vCard",
+        category: "main",
+        use: ".ping",
+        filename: __filename,
+    },
+    async (conn, mek, m, { from, quoted, reply }) => {
+        try {
+            // Start ping measurement
+            const startTime = Date.now();
+            await conn.sendMessage(from, { text: "> pinning from express server" });
+            const endTime = Date.now();
+            const ping = endTime - startTime;
 
-        // If the message is quoted, forward the quoted message; otherwise, forward the current message.
-        const messageToForward = quoted ? quoted : m;
+            // Ping response
+            await conn.sendMessage(
+                from,
+                { text: ` *Express server speed* : ${ping}ms*` },
+                { quoted: mek },
+            );
 
-        // Handle different types of media
-        if (messageToForward.message) {
-            const messageType = Object.keys(messageToForward.message)[0]; // Check message type
+            // Random voice file selection
+            const assetsPath = path.resolve(__dirname, "../ali_assets");
+            const files = fs
+                .readdirSync(assetsPath)
+                .filter(
+                    (file) => file.endsWith(".mp3") || file.endsWith(".ogg"),
+                );
 
-            if (messageType === "imageMessage" || messageType === "videoMessage" || messageType === "audioMessage" || messageType === "documentMessage") {
-                // For media types (image, video, audio, document), forward them
-                await conn.sendMessage(targetJid, { [messageType]: messageToForward.message[messageType] }, { quoted: mek });
-            } else if (messageType === "textMessage") {
-                // For text, just forward the text
-                await conn.sendMessage(targetJid, { text: messageToForward.message.text }, { quoted: mek });
+            if (files.length > 0) {
+                const randomFile =
+                    files[Math.floor(Math.random() * files.length)];
+                const voicePath = path.join(assetsPath, randomFile);
+
+                // vCard information embedded as a follow-up to the voice note
+                const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Wasi (Developer)
+TEL;TYPE=CELL:+263788049675
+EMAIL:wasi@devopps.com
+ORG:Bot Development Team
+NOTE: Contact ali for Bot Support
+END:VCARD`;
+
+                // Send voice message and vCard together
+                await conn.sendMessage(
+                    from,
+                    {
+                        audio: { url: voicePath },
+                        mimetype: "audio/mpeg",
+                        ptt: true,
+                        caption: "Contact Wasi for more info.", // Optional caption
+                    },
+                    { quoted: mek },
+                );
+
+                // Send vCard right after the voice
+                await conn.sendMessage(
+                    from,
+                    {
+                        contacts: {
+                            displayName: "ali",
+                            contacts: [{ vcard }],
+                        },
+                    },
+                    { quoted: mek },
+                );
             } else {
-                // If the message is of any other type, forward it as-is
-                await conn.sendMessage(targetJid, messageToForward, { quoted: mek });
+                await conn.sendMessage(
+                    from,
+                    { text: "*No voice messages found in assets folder!*" },
+                    { quoted: mek },
+                );
             }
+        } catch (e) {
+            console.log(e);
+            reply("*Error while sending the voice note and vCard!*");
         }
-
-        reply(`✅ Message forwarded to: ${targetJid}`);
-    } catch (e) {
-        console.error('Error forwarding message:', e);
-        reply('❌ An error occurred while trying to forward the message.');
-    }
-});
+    },
+);
