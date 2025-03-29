@@ -32,7 +32,7 @@ const {
   const qrcode = require('qrcode-terminal')
   const StickersTypes = require('wa-sticker-formatter')
   const util = require('util')
-  const { sms, downloadMediaMessage } = require('./lib/msg2')
+  const { sms, downloadMediaMessage, AntiDelete } = require('./lib')
   const FileType = require('file-type');
   const axios = require('axios')
   const { File } = require('megajs')
@@ -43,9 +43,9 @@ const {
   const path = require('path')
   const prefix = config.PREFIX
   const mode = config.MODE
-  const ownerNumber = config.OWNER_NUMBER
   const online = config.ALWAYS_ONLINE
   const status = config.AUTO_STATUS_SEEN
+  const status = config.OWNER_NUMBER
   
   const ownerNumber = ['923003588997']
   
