@@ -1,4 +1,4 @@
-const config = require('../config');
+/*const config = require('../config');
 const { cmd, commands } = require('../command');
 const { sms,downloadMediaMessage } = require('../lib/msg2');
 const fs = require('fs');
